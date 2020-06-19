@@ -3,7 +3,7 @@ var ctx = c.getContext('2d');
 const P2 = Math.PI / 2;
 const P3 = 3 * Math.PI / 2;
 const DR = 0.0174533 //1 degree in radians
-console.log(P2)
+
 function drawBackground() {
   ctx.fillStyle = 'rgba( 100, 100, 100, 1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -158,11 +158,11 @@ function Player(xPos, yPos, deltaX, deltaY, speed, rotation, size) {
       //draw 3D
       //fix fisheye
       let ca = this.rotation - ra; if (ra < 0) { ra += 2 * Math.PI } if (ra > 2 * Math.PI) { ra -= 2 * Math.PI } disT = disT * Math.cos(ca);
-      let lineH = map.tileSize * 320 / disT;
-      if (lineH > 320) {
-        lineH = 320
+      let lineH = map.tileSize * canvas.height / disT;
+      if (lineH > canvas.height) {
+        lineH = canvas.height
       }
-      let lineO = 160 - lineH / 2;
+      let lineO = canvas.height / 2 - lineH / 2;
 
 
       ctx.beginPath();
@@ -191,11 +191,6 @@ function Player(xPos, yPos, deltaX, deltaY, speed, rotation, size) {
 
 
     }
-
-
-
-
-
   }
 
   this.draw = function () {
@@ -253,5 +248,6 @@ const draw = () => {
   player.drawRays3D();
   window.requestAnimationFrame(draw);
 };
+console.log(canvas.height);
 map.draw();
 draw();
